@@ -19,7 +19,31 @@ xcodebuild -project USBDeviceInfo.xcodeproj -scheme USBDeviceInfo -configuration
 # Copy ONLY the .app bundle to payload directory
 cp -R "$BUILD_DIR/Release/$APP_NAME.app" "$BUILD_DIR/payload/"
 
+# Create component plist to disable relocation
+cat > "$BUILD_DIR/component.plist" << 'PLIST'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+    <dict>
+        <key>BundleHasStrictIdentifier</key>
+        <true/>
+        <key>BundleIsRelocatable</key>
+        <false/>
+        <key>BundleIsVersionChecked</key>
+        <false/>
+        <key>BundleOverwriteAction</key>
+        <string>upgrade</string>
+        <key>RootRelativeBundlePath</key>
+        <string>USBDeviceInfo.app</string>
+    </dict>
+</array>
+</plist>
+PLIST
+
 pkgbuild --root "$BUILD_DIR/payload" --identifier "com.company.USBDeviceInfo" \
-    --version "$VERSION" --install-location "/Applications" "$BUILD_DIR/$APP_NAME-$VERSION.pkg"
+    --version "$VERSION" --install-location "/Applications" \
+    --component-plist "$BUILD_DIR/component.plist" \
+    "$BUILD_DIR/$APP_NAME-$VERSION.pkg"
 
 echo "Package: $BUILD_DIR/$APP_NAME-$VERSION.pkg"

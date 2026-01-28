@@ -85,53 +85,69 @@ struct HostInfoProvider {
     // MARK: - MAC Address
 
     private func getMACAddress() -> String? {
-        // Find the primary Ethernet interface via IOKit
-        let matchingDict = IOServiceMatching("IOEthernetInterface") as NSMutableDictionary
+        // Get the BSD name of the active network interface (typically en0)
+        let bsdName = getActiveBSDInterface() ?? "en0"
+
+        // Create matching dictionary for the specific interface
+        let matchingDict = IOBSDNameMatching(kIOMainPortDefault, 0, bsdName)
 
         var iterator: io_iterator_t = 0
         let result = IOServiceGetMatchingServices(kIOMainPortDefault, matchingDict, &iterator)
         guard result == KERN_SUCCESS else { return nil }
         defer { IOObjectRelease(iterator) }
 
-        var service: io_object_t = IOIteratorNext(iterator)
+        var service = IOIteratorNext(iterator)
         while service != IO_OBJECT_NULL {
             defer {
                 IOObjectRelease(service)
                 service = IOIteratorNext(iterator)
             }
 
-            // Check if this is the primary interface by looking at parent's IOPrimaryInterface
-            var parentService: io_object_t = IO_OBJECT_NULL
-            let parentResult = IORegistryEntryGetParentEntry(service, kIOServicePlane, &parentService)
-            guard parentResult == KERN_SUCCESS else { continue }
-            defer { IOObjectRelease(parentService) }
+            // Walk up the I/O Registry tree to find the IOEthernetController parent
+            var controllerService: io_object_t = IO_OBJECT_NULL
+            if IORegistryEntryGetParentEntry(service, kIOServicePlane, &controllerService) == KERN_SUCCESS {
+                defer { IOObjectRelease(controllerService) }
 
-            if let primaryRef = IORegistryEntryCreateCFProperty(
-                parentService,
-                "IOPrimaryInterface" as CFString,
-                kCFAllocatorDefault,
-                0
-            ) {
-                let isPrimary = primaryRef.takeRetainedValue() as? Bool ?? false
-                guard isPrimary else { continue }
-            } else {
-                continue
-            }
-
-            // Read IOMACAddress
-            if let macRef = IORegistryEntryCreateCFProperty(
-                service,
-                "IOMACAddress" as CFString,
-                kCFAllocatorDefault,
-                0
-            ) {
-                let macData = macRef.takeRetainedValue() as? Data ?? Data()
-                if macData.count == 6 {
-                    return macData.map { String(format: "%02x", $0) }.joined(separator: ":")
+                // Read IOMACAddress from the controller
+                if let macRef = IORegistryEntryCreateCFProperty(
+                    controllerService,
+                    "IOMACAddress" as CFString,
+                    kCFAllocatorDefault,
+                    0
+                ) {
+                    let macData = macRef.takeRetainedValue() as? Data ?? Data()
+                    if macData.count == 6 {
+                        return macData.map { String(format: "%02x", $0) }.joined(separator: ":")
+                    }
                 }
             }
         }
 
+        return nil
+    }
+
+    // MARK: - Active Network Interface
+
+    private func getActiveBSDInterface() -> String? {
+        var ifaddr: UnsafeMutablePointer<ifaddrs>?
+        guard getifaddrs(&ifaddr) == 0, let firstAddr = ifaddr else { return nil }
+        defer { freeifaddrs(ifaddr) }
+
+        var current: UnsafeMutablePointer<ifaddrs>? = firstAddr
+        while let addr = current {
+            let interface = addr.pointee
+            let family = interface.ifa_addr.pointee.sa_family
+
+            // Look for IPv4 interface that is up and has an address
+            if family == UInt8(AF_INET) {
+                let name = String(cString: interface.ifa_name)
+                // Prefer en0-en9 interfaces (Ethernet/WiFi)
+                if name.hasPrefix("en") {
+                    return name
+                }
+            }
+            current = interface.ifa_next
+        }
         return nil
     }
 }

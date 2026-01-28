@@ -1,0 +1,35 @@
+name: USBDeviceInfo
+options:
+  bundleIdPrefix: com.company
+  deploymentTarget:
+    macOS: "15.0"
+  xcodeVersion: "26.2"
+  minimumXcodeGenVersion: "2.38"
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    MACOSX_DEPLOYMENT_TARGET: "15.0"
+    GENERATE_INFOPLIST_FILE: YES
+    CURRENT_PROJECT_VERSION: 1
+    MARKETING_VERSION: "1.0"
+
+targets:
+  USBDeviceInfo:
+    type: application
+    platform: macOS
+    sources:
+      - path: USBDeviceInfo
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.company.USBDeviceInfo
+        INFOPLIST_KEY_LSApplicationCategoryType: "public.app-category.utilities"
+        INFOPLIST_KEY_CFBundleDisplayName: "USB Device Info"
+        CODE_SIGN_ENTITLEMENTS: USBDeviceInfo/USBDeviceInfo.entitlements
+        ENABLE_APP_SANDBOX: NO
+        ENABLE_HARDENED_RUNTIME: YES
+        SWIFT_STRICT_CONCURRENCY: complete
+    dependencies:
+      - sdk: IOKit.framework
+      - sdk: DiskArbitration.framework
+      - sdk: SystemConfiguration.framework

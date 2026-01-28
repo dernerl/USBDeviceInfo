@@ -1,0 +1,424 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		16B5860FF2FF2E0CA6AB96AD /* ConnectedDevicesSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C35EF7B7124FC0E1BC3944 /* ConnectedDevicesSection.swift */; };
+		1935455706736F67937D6E89 /* HostInfoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9224B61FD4EB7C062A19DF6 /* HostInfoSection.swift */; };
+		24D874B49E642E3132B82587 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 691BD7F2AA61AD44D5B3256E /* Assets.xcassets */; };
+		3493F8E67C6D63F2F2D23C1F /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6384625BD8DCFA9A1003F5CC /* IOKit.framework */; };
+		4D64D64DCF3A024B02E6EC70 /* DeviceHistoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B16748D95403FCFEDA4943 /* DeviceHistoryStore.swift */; };
+		614106FF69A15BF71441A8E3 /* HostInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699439093ED9330AF294F2B3 /* HostInfo.swift */; };
+		8EA81F8A68BB006BB78212A1 /* USBDeviceInfoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1407D99FCFD223CC74118BA /* USBDeviceInfoApp.swift */; };
+		9D6FE38A7E985E8CEF5E5928 /* HostInfoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D63702E7C76007E545AA5 /* HostInfoProvider.swift */; };
+		A2A827A9C4300BAC49D58987 /* USBDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F0186EE39567DAD88D4A3F /* USBDevice.swift */; };
+		AADFC810B53B503BEE2CCA05 /* DiskArbitration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C4C79D94A2024AFB44E45BF /* DiskArbitration.framework */; };
+		ABDCA035E767AAFC8B542D6C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 045A5D909EC737A2387E8E18 /* SystemConfiguration.framework */; };
+		B7981114ED57967E24EC3651 /* DeviceListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD5E9634DE9D344796746FA /* DeviceListViewModel.swift */; };
+		E5BC42F8DD2CABC6573ECA77 /* USBDeviceMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6A6A9AAE8FB22C84BDBE76 /* USBDeviceMonitor.swift */; };
+		F22EC13A1130E90800A904C9 /* RecentDevicesSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE31DC50B5ECB1E981F34BA /* RecentDevicesSection.swift */; };
+		F95E3D181199FDF7AE52D8FA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5388DE272FD42D24922F83 /* ContentView.swift */; };
+		FB94742CFAADD1C026FD4617 /* DeviceCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8237864BDDC79A6A10A37FF1 /* DeviceCardView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		045A5D909EC737A2387E8E18 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		0C4C79D94A2024AFB44E45BF /* DiskArbitration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DiskArbitration.framework; path = System/Library/Frameworks/DiskArbitration.framework; sourceTree = SDKROOT; };
+		0C8D63702E7C76007E545AA5 /* HostInfoProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostInfoProvider.swift; sourceTree = "<group>"; };
+		23F0186EE39567DAD88D4A3F /* USBDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = USBDevice.swift; sourceTree = "<group>"; };
+		3F6A6A9AAE8FB22C84BDBE76 /* USBDeviceMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = USBDeviceMonitor.swift; sourceTree = "<group>"; };
+		4A5388DE272FD42D24922F83 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		4CD5E9634DE9D344796746FA /* DeviceListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceListViewModel.swift; sourceTree = "<group>"; };
+		6384625BD8DCFA9A1003F5CC /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		691BD7F2AA61AD44D5B3256E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		699439093ED9330AF294F2B3 /* HostInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostInfo.swift; sourceTree = "<group>"; };
+		74B16748D95403FCFEDA4943 /* DeviceHistoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceHistoryStore.swift; sourceTree = "<group>"; };
+		8237864BDDC79A6A10A37FF1 /* DeviceCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceCardView.swift; sourceTree = "<group>"; };
+		B32E56F578667583795DF488 /* USBDeviceInfo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = USBDeviceInfo.entitlements; sourceTree = "<group>"; };
+		B9224B61FD4EB7C062A19DF6 /* HostInfoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostInfoSection.swift; sourceTree = "<group>"; };
+		C3483954F9CC5EAE3DE3B1FE /* USBDeviceInfo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = USBDeviceInfo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CBE31DC50B5ECB1E981F34BA /* RecentDevicesSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentDevicesSection.swift; sourceTree = "<group>"; };
+		E1407D99FCFD223CC74118BA /* USBDeviceInfoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = USBDeviceInfoApp.swift; sourceTree = "<group>"; };
+		F5C35EF7B7124FC0E1BC3944 /* ConnectedDevicesSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectedDevicesSection.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1830D3D1EDD4C55D40BC6C85 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3493F8E67C6D63F2F2D23C1F /* IOKit.framework in Frameworks */,
+				AADFC810B53B503BEE2CCA05 /* DiskArbitration.framework in Frameworks */,
+				ABDCA035E767AAFC8B542D6C /* SystemConfiguration.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		25DD9DBDD71763488A1886A6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C3483954F9CC5EAE3DE3B1FE /* USBDeviceInfo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		51F06CB1669D474B645E1F3A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F5C35EF7B7124FC0E1BC3944 /* ConnectedDevicesSection.swift */,
+				8237864BDDC79A6A10A37FF1 /* DeviceCardView.swift */,
+				B9224B61FD4EB7C062A19DF6 /* HostInfoSection.swift */,
+				CBE31DC50B5ECB1E981F34BA /* RecentDevicesSection.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		53105D6F02D054DCA496C2A2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				699439093ED9330AF294F2B3 /* HostInfo.swift */,
+				23F0186EE39567DAD88D4A3F /* USBDevice.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5A7E2D3BDFD0149A037DDD68 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				4CD5E9634DE9D344796746FA /* DeviceListViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		7C5C83A7588E65F78BB5E6E7 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				74B16748D95403FCFEDA4943 /* DeviceHistoryStore.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		AB1CFFFAED4E27B2AE39FB48 /* USBDeviceInfo */ = {
+			isa = PBXGroup;
+			children = (
+				691BD7F2AA61AD44D5B3256E /* Assets.xcassets */,
+				4A5388DE272FD42D24922F83 /* ContentView.swift */,
+				B32E56F578667583795DF488 /* USBDeviceInfo.entitlements */,
+				E1407D99FCFD223CC74118BA /* USBDeviceInfoApp.swift */,
+				53105D6F02D054DCA496C2A2 /* Models */,
+				DAB4B2229FEF7D19B22A256A /* Services */,
+				7C5C83A7588E65F78BB5E6E7 /* Utilities */,
+				5A7E2D3BDFD0149A037DDD68 /* ViewModels */,
+				51F06CB1669D474B645E1F3A /* Views */,
+			);
+			path = USBDeviceInfo;
+			sourceTree = "<group>";
+		};
+		DAB4B2229FEF7D19B22A256A /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				0C8D63702E7C76007E545AA5 /* HostInfoProvider.swift */,
+				3F6A6A9AAE8FB22C84BDBE76 /* USBDeviceMonitor.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		E55BD136557A961A50C675E6 = {
+			isa = PBXGroup;
+			children = (
+				AB1CFFFAED4E27B2AE39FB48 /* USBDeviceInfo */,
+				EE8A370DFD1EE41B0A01C03F /* Frameworks */,
+				25DD9DBDD71763488A1886A6 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EE8A370DFD1EE41B0A01C03F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0C4C79D94A2024AFB44E45BF /* DiskArbitration.framework */,
+				6384625BD8DCFA9A1003F5CC /* IOKit.framework */,
+				045A5D909EC737A2387E8E18 /* SystemConfiguration.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F0374CD8E320E5F7C9432749 /* USBDeviceInfo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4A9797F9DC4410FE7AA78EE5 /* Build configuration list for PBXNativeTarget "USBDeviceInfo" */;
+			buildPhases = (
+				7E4DA6F7348269C8D7465C1A /* Sources */,
+				79B3B451D896ED785776D3ED /* Resources */,
+				1830D3D1EDD4C55D40BC6C85 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = USBDeviceInfo;
+			packageProductDependencies = (
+			);
+			productName = USBDeviceInfo;
+			productReference = C3483954F9CC5EAE3DE3B1FE /* USBDeviceInfo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6769B548330CBF18A343971C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 2620;
+			};
+			buildConfigurationList = 6A3B751A138EE603E596A6C7 /* Build configuration list for PBXProject "USBDeviceInfo" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = E55BD136557A961A50C675E6;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F0374CD8E320E5F7C9432749 /* USBDeviceInfo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		79B3B451D896ED785776D3ED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				24D874B49E642E3132B82587 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7E4DA6F7348269C8D7465C1A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				16B5860FF2FF2E0CA6AB96AD /* ConnectedDevicesSection.swift in Sources */,
+				F95E3D181199FDF7AE52D8FA /* ContentView.swift in Sources */,
+				FB94742CFAADD1C026FD4617 /* DeviceCardView.swift in Sources */,
+				4D64D64DCF3A024B02E6EC70 /* DeviceHistoryStore.swift in Sources */,
+				B7981114ED57967E24EC3651 /* DeviceListViewModel.swift in Sources */,
+				614106FF69A15BF71441A8E3 /* HostInfo.swift in Sources */,
+				9D6FE38A7E985E8CEF5E5928 /* HostInfoProvider.swift in Sources */,
+				1935455706736F67937D6E89 /* HostInfoSection.swift in Sources */,
+				F22EC13A1130E90800A904C9 /* RecentDevicesSection.swift in Sources */,
+				A2A827A9C4300BAC49D58987 /* USBDevice.swift in Sources */,
+				8EA81F8A68BB006BB78212A1 /* USBDeviceInfoApp.swift in Sources */,
+				E5BC42F8DD2CABC6573ECA77 /* USBDeviceMonitor.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		33EBCA4973AB76952B2D2760 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = USBDeviceInfo/USBDeviceInfo.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "USB Device Info";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.company.USBDeviceInfo;
+				SDKROOT = macosx;
+				SWIFT_STRICT_CONCURRENCY = complete;
+			};
+			name = Debug;
+		};
+		476C1B040A2D0025B2352399 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		6392F3793507C722AA0CC386 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		DEAEDF2070A309B75A37F883 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = USBDeviceInfo/USBDeviceInfo.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "USB Device Info";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.company.USBDeviceInfo;
+				SDKROOT = macosx;
+				SWIFT_STRICT_CONCURRENCY = complete;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4A9797F9DC4410FE7AA78EE5 /* Build configuration list for PBXNativeTarget "USBDeviceInfo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				33EBCA4973AB76952B2D2760 /* Debug */,
+				DEAEDF2070A309B75A37F883 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		6A3B751A138EE603E596A6C7 /* Build configuration list for PBXProject "USBDeviceInfo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				476C1B040A2D0025B2352399 /* Debug */,
+				6392F3793507C722AA0CC386 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6769B548330CBF18A343971C /* Project object */;
+}

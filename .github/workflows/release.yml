@@ -25,14 +25,10 @@ jobs:
       - name: Build .pkg
         run: make pkg
 
-      - name: Get version from tag
-        id: version
-        run: echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
-
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          files: build/USBDeviceInfo-${{ steps.version.outputs.version }}.pkg
+          files: build/*.pkg
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

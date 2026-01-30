@@ -87,6 +87,19 @@ struct HostInfoSection: View {
                         }
                     }
                 }
+
+                if let falconLoaded = info.falconSensorLoaded {
+                    GridRow {
+                        Text("Falcon Sensor")
+                            .foregroundStyle(.secondary)
+                        HStack(spacing: 6) {
+                            Circle()
+                                .fill(falconLoaded ? .green : .orange)
+                                .frame(width: 8, height: 8)
+                            Text(falconLoaded ? "Active" : "Inactive")
+                        }
+                    }
+                }
             }
             .font(.callout)
         }

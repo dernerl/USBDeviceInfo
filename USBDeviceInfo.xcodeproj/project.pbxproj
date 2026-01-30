@@ -3,12 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 63;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		16B5860FF2FF2E0CA6AB96AD /* ConnectedDevicesSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C35EF7B7124FC0E1BC3944 /* ConnectedDevicesSection.swift */; };
 		1935455706736F67937D6E89 /* HostInfoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9224B61FD4EB7C062A19DF6 /* HostInfoSection.swift */; };
+		B2C3D4E5F6A7B8C9D0E1F2A3 /* FalconInfoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D3C4B5A6978869504132F1 /* FalconInfoProvider.swift */; };
 		24D874B49E642E3132B82587 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 691BD7F2AA61AD44D5B3256E /* Assets.xcassets */; };
 		3493F8E67C6D63F2F2D23C1F /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6384625BD8DCFA9A1003F5CC /* IOKit.framework */; };
 		4D64D64DCF3A024B02E6EC70 /* DeviceHistoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B16748D95403FCFEDA4943 /* DeviceHistoryStore.swift */; };
@@ -44,6 +45,7 @@
 		CBE31DC50B5ECB1E981F34BA /* RecentDevicesSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentDevicesSection.swift; sourceTree = "<group>"; };
 		E1407D99FCFD223CC74118BA /* USBDeviceInfoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = USBDeviceInfoApp.swift; sourceTree = "<group>"; };
 		F5C35EF7B7124FC0E1BC3944 /* ConnectedDevicesSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectedDevicesSection.swift; sourceTree = "<group>"; };
+		E2D3C4B5A6978869504132F1 /* FalconInfoProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FalconInfoProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 		DAB4B2229FEF7D19B22A256A /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				E2D3C4B5A6978869504132F1 /* FalconInfoProvider.swift */,
 				0C8D63702E7C76007E545AA5 /* HostInfoProvider.swift */,
 				3F6A6A9AAE8FB22C84BDBE76 /* USBDeviceMonitor.swift */,
 			);
@@ -189,7 +192,6 @@
 			);
 			mainGroup = E55BD136557A961A50C675E6;
 			minimizedProjectReferenceProxies = 1;
-			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -219,6 +221,7 @@
 				FB94742CFAADD1C026FD4617 /* DeviceCardView.swift in Sources */,
 				4D64D64DCF3A024B02E6EC70 /* DeviceHistoryStore.swift in Sources */,
 				B7981114ED57967E24EC3651 /* DeviceListViewModel.swift in Sources */,
+				B2C3D4E5F6A7B8C9D0E1F2A3 /* FalconInfoProvider.swift in Sources */,
 				614106FF69A15BF71441A8E3 /* HostInfo.swift in Sources */,
 				9D6FE38A7E985E8CEF5E5928 /* HostInfoProvider.swift in Sources */,
 				1935455706736F67937D6E89 /* HostInfoSection.swift in Sources */,
@@ -237,7 +240,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = USBDeviceInfo/USBDeviceInfo.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				COMBINE_HIDPI_IMAGES = YES;
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = "";
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "USB Device Info";
@@ -247,6 +252,7 @@
 					"@executable_path/../Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.company.USBDeviceInfo;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SDKROOT = macosx;
 				SWIFT_STRICT_CONCURRENCY = complete;
 			};
@@ -382,7 +388,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = USBDeviceInfo/USBDeviceInfo.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				COMBINE_HIDPI_IMAGES = YES;
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = "";
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "USB Device Info";
@@ -392,6 +400,7 @@
 					"@executable_path/../Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.company.USBDeviceInfo;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SDKROOT = macosx;
 				SWIFT_STRICT_CONCURRENCY = complete;
 			};

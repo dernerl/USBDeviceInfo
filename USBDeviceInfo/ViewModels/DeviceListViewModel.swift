@@ -15,6 +15,7 @@ final class DeviceListViewModel {
     private let monitor = USBDeviceMonitor()
     private let historyStore = DeviceHistoryStore()
     private let hostInfoProvider = HostInfoProvider()
+    private let falconInfoProvider = FalconInfoProvider()
     private var debounceTask: Task<Void, Never>?
     private var volumeRetryTask: Task<Void, Never>?
 
@@ -85,7 +86,9 @@ final class DeviceListViewModel {
     // MARK: - Private
 
     private func loadHostInfo() async {
-        let info = await hostInfoProvider.getHostInfo()
+        var info = await hostInfoProvider.getHostInfo()
+        let falconStatus = await falconInfoProvider.isSensorLoaded()
+        info.falconSensorLoaded = falconStatus
         hostInfo = info
     }
 

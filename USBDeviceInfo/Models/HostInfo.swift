@@ -6,4 +6,5 @@ struct HostInfo {
     var localIP: String?
     var externalIP: String?
     var macAddress: String?
+    var falconSensorLoaded: Bool?  // nil = nicht installiert, true/false = Status
 }

@@ -2,6 +2,25 @@
 
 Eine macOS-App zur Anzeige von Informationen über angeschlossene USB-Geräte.
 
+## Funktionen
+
+- Zeigt alle angeschlossenen USB-Geräte mit Vendor ID, Product ID und Seriennummer
+- Generiert automatisch die **CrowdStrike Falcon Combined ID** zum einfachen Kopieren
+- Speichert kürzlich verbundene Geräte in einer Historie
+- Zeigt Host-Informationen (Computername, IP-Adressen, MAC-Adresse)
+- Erkennt den CrowdStrike Falcon Sensor Status
+
+### Falcon Device Control Erkennung
+
+Wenn ein USB-Massenspeichergerät von **CrowdStrike Falcon Device Control** blockiert wird, zeigt die App ein oranges **"Blocked"**-Badge mit einem Schild-Symbol an.
+
+Das Badge erscheint wenn:
+1. Das Gerät ein Massenspeichergerät ist (z.B. USB-Stick, externe Festplatte)
+2. Kein Volume gemountet werden konnte
+3. Der Falcon Sensor als aktiv erkannt wurde
+
+> **Hinweis:** Die Erkennung basiert auf Inferenz. Wenn ein Massenspeichergerät kein Volume hat und Falcon aktiv ist, wird angenommen dass Falcon das Gerät blockiert.
+
 ## Installation
 
 ### Download

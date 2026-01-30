@@ -89,4 +89,10 @@ struct USBDevice: Identifiable, Codable, Hashable {
     var fingerprint: String {
         "\(vendorID)_\(productID)_\(serialNumber)"
     }
+
+    /// Returns true if this mass storage device has no mounted volume
+    /// (may indicate blocking by Falcon Device Control when Falcon is active)
+    var isLikelyBlocked: Bool {
+        deviceType == .massStorage && volumeName == nil
+    }
 }

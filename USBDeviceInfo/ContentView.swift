@@ -14,6 +14,7 @@ struct ContentView: View {
 
                 ConnectedDevicesSection(
                     devices: viewModel.connectedDevices,
+                    isFalconActive: viewModel.hostInfo?.falconSensorLoaded == true,
                     copyFeedbackDeviceID: viewModel.copyFeedbackDeviceID,
                     onCopy: { viewModel.copyCombinedID(for: $0) }
                 )
@@ -21,6 +22,7 @@ struct ContentView: View {
                 if !viewModel.recentDevices.isEmpty {
                     RecentDevicesSection(
                         devices: viewModel.recentDevices,
+                        isFalconActive: viewModel.hostInfo?.falconSensorLoaded == true,
                         copyFeedbackDeviceID: viewModel.copyFeedbackDeviceID,
                         onCopy: { viewModel.copyCombinedID(for: $0) }
                     )

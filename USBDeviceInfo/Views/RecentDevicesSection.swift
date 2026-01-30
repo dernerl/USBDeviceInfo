@@ -2,6 +2,7 @@ import SwiftUI
 
 struct RecentDevicesSection: View {
     let devices: [USBDevice]
+    let isFalconActive: Bool
     let copyFeedbackDeviceID: UUID?
     let onCopy: (USBDevice) -> Void
 
@@ -14,6 +15,7 @@ struct RecentDevicesSection: View {
             ForEach(devices) { device in
                 DeviceCardView(
                     device: device,
+                    isFalconActive: isFalconActive,
                     showCopied: copyFeedbackDeviceID == device.id,
                     onCopy: { onCopy(device) }
                 )

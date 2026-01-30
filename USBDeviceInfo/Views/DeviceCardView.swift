@@ -2,6 +2,7 @@ import SwiftUI
 
 struct DeviceCardView: View {
     let device: USBDevice
+    let isFalconActive: Bool
     let showCopied: Bool
     let onCopy: () -> Void
 
@@ -35,6 +36,20 @@ struct DeviceCardView: View {
                         .padding(.vertical, 2)
                         .background(.quaternary)
                         .clipShape(Capsule())
+
+                    if device.isLikelyBlocked && isFalconActive {
+                        HStack(spacing: 3) {
+                            Image(systemName: "exclamationmark.shield")
+                            Text("Blocked")
+                        }
+                        .font(.caption)
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 2)
+                        .background(Color.orange.opacity(0.2))
+                        .foregroundStyle(.orange)
+                        .clipShape(Capsule())
+                        .help("This device may be blocked by Falcon Device Control")
+                    }
                 }
 
                 if let volumeName = device.volumeName {

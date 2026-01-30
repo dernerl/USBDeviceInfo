@@ -1,0 +1,15 @@
+# Agent OS Standards Index
+
+macos:
+  xcodegen:
+    description: XcodeGen project.yml setup for macOS apps
+  intune-pkg:
+    description: Build .pkg installer for Microsoft Intune deployment
+
+swiftui:
+  observable-viewmodel:
+    description: "@Observable @MainActor ViewModel pattern with @State"
+  section-components:
+    description: Break views into *Section components with data + callbacks
+  card-style:
+    description: Card styling with .regularMaterial, 12pt radius, 16pt padding

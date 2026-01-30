@@ -6,6 +6,18 @@ struct ConnectedDevicesSection: View {
     let copyFeedbackDeviceID: UUID?
     let onCopy: (USBDevice) -> Void
 
+    /// Sorted devices: Mass Storage first, then by connection time
+    private var sortedDevices: [USBDevice] {
+        devices.sorted { a, b in
+            if a.deviceType == .massStorage && b.deviceType != .massStorage {
+                return true
+            } else if a.deviceType != .massStorage && b.deviceType == .massStorage {
+                return false
+            }
+            return a.connectedAt > b.connectedAt
+        }
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Label("Connected Devices", systemImage: "cable.connector.horizontal")
@@ -15,7 +27,7 @@ struct ConnectedDevicesSection: View {
             if devices.isEmpty {
                 emptyState
             } else {
-                ForEach(devices) { device in
+                ForEach(sortedDevices) { device in
                     DeviceCardView(
                         device: device,
                         isFalconActive: isFalconActive,

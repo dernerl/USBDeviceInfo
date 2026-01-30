@@ -13,7 +13,17 @@ struct DeviceCardView: View {
             detailsGrid
         }
         .padding(16)
-        .background(.regularMaterial)
+        .background {
+            if device.deviceType == .massStorage {
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color.blue.opacity(0.08))
+                    .background(.regularMaterial)
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+            } else {
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(.regularMaterial)
+            }
+        }
         .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 

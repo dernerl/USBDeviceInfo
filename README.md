@@ -1,6 +1,7 @@
 # USBDeviceInfo
 
 Eine macOS-App zur Anzeige von Informationen über angeschlossene USB-Geräte.
+<img width="493" height="633" alt="image" src="https://github.com/user-attachments/assets/7feee39b-5a40-43c1-807a-3d3ec7bbc751" />
 
 ## Funktionen
 

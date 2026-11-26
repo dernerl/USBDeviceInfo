@@ -48,21 +48,28 @@ struct DeviceCardView: View {
                         .clipShape(Capsule())
 
                     if device.isLikelyBlocked && isFalconActive {
-                        HStack(spacing: 3) {
-                            Image(systemName: "exclamationmark.shield")
-                            Text("Blocked")
-                        }
-                        .font(.caption)
-                        .padding(.horizontal, 6)
-                        .padding(.vertical, 2)
-                        .background(Color.orange.opacity(0.2))
-                        .foregroundStyle(.orange)
-                        .clipShape(Capsule())
-                        .help("This device may be blocked by Falcon Device Control")
+                        badge(
+                            "Blocked",
+                            icon: "exclamationmark.shield",
+                            tint: .orange,
+                            help: "This device may be blocked by Falcon Device Control"
+                        )
                     }
 
-                    if device.deviceType == .massStorage {
-                        eligibilityBadge
+                    if isAccessAllowed {
+                        badge(
+                            "Zugriff erlaubt",
+                            icon: "checkmark.shield",
+                            tint: .green,
+                            help: "Falcon lässt diesen Stick zu, z. B. durch eine Freigabe. Ob sie befristet ist, siehst du im Ticket."
+                        )
+                    } else if device.deviceType == .massStorage {
+                        badge(
+                            eligibility.label,
+                            icon: eligibility.isEligible ? "checkmark.seal" : "xmark.seal",
+                            tint: eligibility.isEligible ? .green : .orange,
+                            help: eligibility.reason
+                        )
                     }
                 }
 
@@ -103,11 +110,17 @@ struct DeviceCardView: View {
         device.deviceType != .massStorage || eligibility.isEligible
     }
 
-    private var eligibilityBadge: some View {
-        let tint: Color = eligibility.isEligible ? .green : .orange
-        return HStack(spacing: 3) {
-            Image(systemName: eligibility.isEligible ? "checkmark.seal" : "xmark.seal")
-            Text(eligibility.label)
+    /// Mounted while Falcon is active: Device Control lets the stick through.
+    /// Whether that is an exception (and when it expires) is not readable locally:
+    /// the policy is only in root-only, encrypted Falcon channel files.
+    private var isAccessAllowed: Bool {
+        device.deviceType == .massStorage && device.volumeName != nil && isFalconActive
+    }
+
+    private func badge(_ label: String, icon: String, tint: Color, help: String) -> some View {
+        HStack(spacing: 3) {
+            Image(systemName: icon)
+            Text(label)
         }
         .font(.caption)
         .padding(.horizontal, 6)
@@ -115,7 +128,7 @@ struct DeviceCardView: View {
         .background(tint.opacity(0.2))
         .foregroundStyle(tint)
         .clipShape(Capsule())
-        .help(eligibility.reason)
+        .help(help)
     }
 
     private var detailsGrid: some View {

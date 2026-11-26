@@ -207,19 +207,31 @@ final class USBDeviceMonitor {
 
     // MARK: - Volume Name Resolution
 
-    /// Resolve volume name from an IORegistry service by finding BSD Name in child hierarchy.
+    /// Name of the first *mounted* volume below this USB device, nil if none is mounted.
+    /// Checks every BSD node (whole disk and partitions): partitioned sticks only carry
+    /// the volume on a partition (disk4s1), not on the whole disk (disk4).
     private func resolveVolumeNameFromService(_ service: io_object_t) -> String? {
-        // Search recursively for BSD Name in child hierarchy
-        guard let bsdNameRef = IORegistryEntrySearchCFProperty(
+        var iterator: io_iterator_t = 0
+        guard IORegistryEntryCreateIterator(
             service,
             kIOServicePlane,
-            "BSD Name" as CFString,
-            kCFAllocatorDefault,
-            IOOptionBits(kIORegistryIterateRecursively)
-        ) else { return nil }
+            IOOptionBits(kIORegistryIterateRecursively),
+            &iterator
+        ) == KERN_SUCCESS else { return nil }
+        defer { IOObjectRelease(iterator) }
 
-        guard let bsdName = bsdNameRef as? String else { return nil }
-        return volumeNameFromBSDName(bsdName)
+        var entry = IOIteratorNext(iterator)
+        while entry != IO_OBJECT_NULL {
+            defer {
+                IOObjectRelease(entry)
+                entry = IOIteratorNext(iterator)
+            }
+            if let bsdName = stringProperty(entry, key: "BSD Name"),
+               let name = mountedVolumeName(bsdName: bsdName) {
+                return name
+            }
+        }
+        return nil
     }
 
     /// Resolve volume name by scanning IORegistry for a mass storage device matching vendor/product ID.
@@ -250,12 +262,16 @@ final class USBDeviceMonitor {
         return nil
     }
 
-    /// Use DiskArbitration to get volume name from a BSD device name.
-    private func volumeNameFromBSDName(_ bsdName: String) -> String? {
-        guard let session = DASessionCreate(kCFAllocatorDefault) else { return nil }
-        guard let disk = DADiskCreateFromBSDName(kCFAllocatorDefault, session, bsdName) else { return nil }
-        guard let desc = DADiskCopyDescription(disk) as? [String: Any] else { return nil }
-        return desc[kDADiskDescriptionVolumeNameKey as String] as? String
+    /// Volume name for a BSD device, only if it is currently mounted.
+    /// DiskArbitration keeps VolumeName after an unmount, so the mount state
+    /// is taken from VolumePath (e.g. when Falcon unmounts after an exception expires).
+    private func mountedVolumeName(bsdName: String) -> String? {
+        guard let session = DASessionCreate(kCFAllocatorDefault),
+              let disk = DADiskCreateFromBSDName(kCFAllocatorDefault, session, bsdName),
+              let desc = DADiskCopyDescription(disk) as? [String: Any],
+              let path = desc[kDADiskDescriptionVolumePathKey as String] as? URL
+        else { return nil }
+        return desc[kDADiskDescriptionVolumeNameKey as String] as? String ?? path.lastPathComponent
     }
 
     // MARK: - Property Helpers

@@ -163,10 +163,10 @@ struct DeviceCardView: View {
         }
     }
 
+    /// IDs in hex like system_profiler / System Information (0x1050).
+    /// The Combined ID stays decimal: that is what Falcon Device Control expects.
     private func formatField(_ name: String, id: Int) -> String {
-        if name.isEmpty {
-            return "Unknown (\(id))"
-        }
-        return "\(name) (\(id))"
+        let hexID = String(format: "0x%04x", id)
+        return "\(name.isEmpty ? "Unknown" : name) (\(hexID))"
     }
 }

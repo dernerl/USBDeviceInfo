@@ -15,13 +15,95 @@ struct HostInfoProvider {
             hostName: hostName,
             localIP: localIP,
             externalIP: nil,
-            macAddress: macAddress
+            macAddress: macAddress,
+            externalAdapters: getExternalAdapters()
         )
 
         // Fetch external IP asynchronously
         info.externalIP = await fetchExternalIP()
 
         return info
+    }
+
+    // MARK: - External Network Adapters (Docks)
+
+    /// Ethernet interfaces that are not built in and sit on a USB or PCIe device
+    /// (USB dongles, Thunderbolt docks). Skips the Mac's own USB-C gadget
+    /// interfaces (AppleUSBDeviceNCM) and virtual VM interfaces.
+    func getExternalAdapters() -> [NetworkAdapter] {
+        var iterator: io_iterator_t = 0
+        guard IOServiceGetMatchingServices(
+            kIOMainPortDefault, IOServiceMatching("IOEthernetInterface"), &iterator
+        ) == KERN_SUCCESS else { return [] }
+        defer { IOObjectRelease(iterator) }
+
+        var adapters: [NetworkAdapter] = []
+        var interface = IOIteratorNext(iterator)
+        while interface != IO_OBJECT_NULL {
+            defer {
+                IOObjectRelease(interface)
+                interface = IOIteratorNext(iterator)
+            }
+            guard registryBool(interface, "IOBuiltin") == false,
+                  let bsdName = registryString(interface, "BSD Name"),
+                  hasHardwareAncestor(interface),
+                  let mac = macAddress(ofInterface: interface)
+            else { continue }
+
+            adapters.append(NetworkAdapter(
+                name: displayName(forBSDName: bsdName) ?? bsdName,
+                bsdName: bsdName,
+                macAddress: mac
+            ))
+        }
+        return adapters.sorted { $0.bsdName.localizedStandardCompare($1.bsdName) == .orderedAscending }
+    }
+
+    private func hasHardwareAncestor(_ entry: io_object_t) -> Bool {
+        var current = entry
+        IOObjectRetain(current)
+        defer { IOObjectRelease(current) }
+
+        while true {
+            var parent: io_registry_entry_t = IO_OBJECT_NULL
+            guard IORegistryEntryGetParentEntry(current, kIOServicePlane, &parent) == KERN_SUCCESS else {
+                return false
+            }
+            IOObjectRelease(current)
+            current = parent
+            if IOObjectConformsTo(current, "IOUSBHostDevice") != 0
+                || IOObjectConformsTo(current, "IOPCIDevice") != 0 {
+                return true
+            }
+        }
+    }
+
+    private func macAddress(ofInterface interface: io_object_t) -> String? {
+        var controller: io_object_t = IO_OBJECT_NULL
+        guard IORegistryEntryGetParentEntry(interface, kIOServicePlane, &controller) == KERN_SUCCESS else {
+            return nil
+        }
+        defer { IOObjectRelease(controller) }
+        guard let data = IORegistryEntryCreateCFProperty(
+            controller, "IOMACAddress" as CFString, kCFAllocatorDefault, 0
+        )?.takeRetainedValue() as? Data, data.count == 6 else { return nil }
+        return data.map { String(format: "%02x", $0) }.joined(separator: ":")
+    }
+
+    private func displayName(forBSDName bsdName: String) -> String? {
+        guard let all = SCNetworkInterfaceCopyAll() as? [SCNetworkInterface] else { return nil }
+        return all.first { SCNetworkInterfaceGetBSDName($0) as String? == bsdName }
+            .flatMap { SCNetworkInterfaceGetLocalizedDisplayName($0) as String? }
+    }
+
+    private func registryString(_ entry: io_object_t, _ key: String) -> String? {
+        IORegistryEntryCreateCFProperty(entry, key as CFString, kCFAllocatorDefault, 0)?
+            .takeRetainedValue() as? String
+    }
+
+    private func registryBool(_ entry: io_object_t, _ key: String) -> Bool? {
+        IORegistryEntryCreateCFProperty(entry, key as CFString, kCFAllocatorDefault, 0)?
+            .takeRetainedValue() as? Bool
     }
 
     // MARK: - Computer Name

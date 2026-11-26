@@ -10,7 +10,7 @@ final class DeviceListViewModel {
     private(set) var recentDevices: [USBDevice] = []
     private(set) var hostInfo: HostInfo?
     var copyFeedbackDeviceID: UUID?
-    var macCopied = false
+    var copiedMAC: String?
 
     private let monitor = USBDeviceMonitor()
     private let historyStore = DeviceHistoryStore()
@@ -45,6 +45,9 @@ final class DeviceListViewModel {
 
         reloadHistory()
 
+        // Docks come and go with USB events: keep their MACs current
+        hostInfo?.externalAdapters = hostInfoProvider.getExternalAdapters()
+
         // Schedule volume name retry for mass storage devices with nil volumeName
         scheduleVolumeNameRetry()
     }
@@ -70,17 +73,18 @@ final class DeviceListViewModel {
         }
     }
 
-    func copyMACAddress() {
-        guard let mac = hostInfo?.macAddress else { return }
+    func copyMACAddress(_ mac: String) {
         let pasteboard = NSPasteboard.general
         pasteboard.clearContents()
         pasteboard.setString(mac, forType: .string)
 
-        macCopied = true
+        copiedMAC = mac
 
         Task { [weak self] in
             try? await Task.sleep(for: .seconds(1.5))
-            self?.macCopied = false
+            if self?.copiedMAC == mac {
+                self?.copiedMAC = nil
+            }
         }
     }
 

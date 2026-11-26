@@ -95,4 +95,55 @@ struct USBDevice: Identifiable, Codable, Hashable {
     var isLikelyBlocked: Bool {
         deviceType == .massStorage && volumeName == nil
     }
+
+    /// Whether a Falcon Device Control exception can target exactly this device
+    var exceptionEligibility: ExceptionEligibility {
+        ExceptionEligibility(serialNumber: serialNumber)
+    }
+}
+
+/// Whether a serial number identifies a device uniquely enough for a
+/// Device Control exception. Falcon matches only VID, PID and serial — a
+/// missing or placeholder serial would release every identical device.
+/// Rules must match the server-side self-service release (see issue #10).
+enum ExceptionEligibility: Equatable {
+    case eligible
+    case missingSerial
+    case placeholderSerial
+
+    /// Known controller placeholder serials (prefix match).
+    /// Keep in sync with the self-service release.
+    static let placeholderPattern = "^(CCYYMMDDHHmmSS|0123456789)"
+
+    init(serialNumber: String) {
+        let serial = serialNumber.trimmingCharacters(in: .whitespacesAndNewlines)
+        let withoutLeadingZeros = serial.drop(while: { $0 == "0" })
+
+        if serial.isEmpty {
+            self = .missingSerial
+        } else if withoutLeadingZeros.count < 3
+                    || Set(serial).count == 1
+                    || serial.range(of: Self.placeholderPattern, options: .regularExpression) != nil {
+            self = .placeholderSerial
+        } else {
+            self = .eligible
+        }
+    }
+
+    var isEligible: Bool { self == .eligible }
+
+    var label: String {
+        isEligible ? "Freigabe möglich" : "Keine Freigabe möglich"
+    }
+
+    var reason: String {
+        switch self {
+        case .eligible:
+            "Die Seriennummer ist eindeutig genug für eine Freigabe."
+        case .missingSerial:
+            "Der Stick hat keine Seriennummer. Eine Freigabe würde alle baugleichen Sticks freigeben."
+        case .placeholderSerial:
+            "Die Seriennummer ist ein Platzhalter des Herstellers und nicht eindeutig."
+        }
+    }
 }

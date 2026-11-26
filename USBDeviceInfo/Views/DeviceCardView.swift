@@ -60,6 +60,10 @@ struct DeviceCardView: View {
                         .clipShape(Capsule())
                         .help("This device may be blocked by Falcon Device Control")
                     }
+
+                    if device.deviceType == .massStorage {
+                        eligibilityBadge
+                    }
                 }
 
                 if let volumeName = device.volumeName {
@@ -86,7 +90,32 @@ struct DeviceCardView: View {
             }
             .buttonStyle(.bordered)
             .tint(showCopied ? .green : nil)
+            .disabled(!canCopyID)
+            .help(canCopyID ? "Copy Combined ID" : eligibility.reason)
         }
+    }
+
+    private var eligibility: ExceptionEligibility { device.exceptionEligibility }
+
+    /// Copying the ID of a mass storage device that cannot be released would
+    /// only lead to a rejected self-service request.
+    private var canCopyID: Bool {
+        device.deviceType != .massStorage || eligibility.isEligible
+    }
+
+    private var eligibilityBadge: some View {
+        let tint: Color = eligibility.isEligible ? .green : .orange
+        return HStack(spacing: 3) {
+            Image(systemName: eligibility.isEligible ? "checkmark.seal" : "xmark.seal")
+            Text(eligibility.label)
+        }
+        .font(.caption)
+        .padding(.horizontal, 6)
+        .padding(.vertical, 2)
+        .background(tint.opacity(0.2))
+        .foregroundStyle(tint)
+        .clipShape(Capsule())
+        .help(eligibility.reason)
     }
 
     private var detailsGrid: some View {

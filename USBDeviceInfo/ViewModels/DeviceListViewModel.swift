@@ -28,6 +28,7 @@ final class DeviceListViewModel {
             }
         }
         monitor.startMonitoring()
+        observeVolumeMounts()
 
         Task {
             await loadHostInfo()
@@ -96,6 +97,19 @@ final class DeviceListViewModel {
         let history = historyStore.loadHistory()
         let connectedFingerprints = Set(connectedDevices.map(\.fingerprint))
         recentDevices = history.filter { !connectedFingerprints.contains($0.fingerprint) }
+    }
+
+    /// A Device Control exception (or its expiry) mounts/unmounts the volume
+    /// without any USB event, so re-evaluate on mount changes too (issue #9).
+    private func observeVolumeMounts() {
+        let center = NSWorkspace.shared.notificationCenter
+        for name in [NSWorkspace.didMountNotification, NSWorkspace.didUnmountNotification] {
+            center.addObserver(forName: name, object: nil, queue: .main) { [weak self] _ in
+                Task { @MainActor [weak self] in
+                    self?.scheduleRefresh()
+                }
+            }
+        }
     }
 
     private func scheduleRefresh() {

@@ -8,8 +8,8 @@ struct ContentView: View {
             VStack(alignment: .leading, spacing: 24) {
                 HostInfoSection(
                     hostInfo: viewModel.hostInfo,
-                    macCopied: viewModel.macCopied,
-                    onCopyMAC: { viewModel.copyMACAddress() }
+                    copiedMAC: viewModel.copiedMAC,
+                    onCopyMAC: { viewModel.copyMACAddress($0) }
                 )
 
                 ConnectedDevicesSection(
